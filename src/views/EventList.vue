@@ -12,7 +12,7 @@
 
 <script>
 import EventCard from "@/components/EventCard";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "EventList",
@@ -22,14 +22,17 @@ export default {
   data() {
     return {
       eventsList: []
-    }
+    };
   },
   created() {
     axios
-      .get('http://localhost:3000/events')
+      .get("http://localhost:3000/events")
       .then(response => {
-        this.eventsList = response.data
+        this.eventsList = response.data;
       })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
