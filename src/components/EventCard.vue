@@ -5,7 +5,8 @@
         >Starts at {{ event.checkIn }} on {{ event.startDate }}</span
       >
       <h4 class="title">{{ event.name }}</h4>
-      <span><BaseIcon name="users"/>{{ event.attendees.length }} attending</span><br />
+      <BaseIcon name="users">{{ event.attendees.length }} attending</BaseIcon
+      ><br />
       <span>Ends {{ event.endDate }} at {{ event.checkOut }}</span>
     </div>
   </router-link>
