@@ -2,12 +2,11 @@
   <router-link :to="url" class="event-link">
     <div class="event-card -shadow">
       <span class="eyebrow"
-        >Starts at {{ event.checkIn }} on {{ event.startDate }}</span
+        >Starts at {{ event.time }} on {{ event.date }}</span
       >
-      <h4 class="title">{{ event.name }}</h4>
+      <h4 class="title">{{ event.title }}</h4>
       <BaseIcon name="users">{{ event.attendees.length }} attending</BaseIcon
-      ><br />
-      <span>Ends {{ event.endDate }} at {{ event.checkOut }}</span>
+      >
     </div>
   </router-link>
 </template>
