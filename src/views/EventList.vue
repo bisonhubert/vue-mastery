@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import EventCard from "@/views/EventCard";
+import EventCard from "@/components/EventCard";
 
 export default {
   name: "EventList",
@@ -29,11 +29,11 @@ export default {
           checkIn: "3:00 PM",
           checkOut: "12:00PM",
           attendees: [
-            { id: 1, name: 'Tomas Rodriguez' },
-            { id: 2, name: 'James Bolotin' },
-            { id: 3, name: 'Joe Ott' },
-            { id: 4, name: 'Bryce Yockey' },
-            { id: 5, name: 'Grant Sloan' }
+            { id: 1, name: "Tomas Rodriguez" },
+            { id: 2, name: "James Bolotin" },
+            { id: 3, name: "Joe Ott" },
+            { id: 4, name: "Bryce Yockey" },
+            { id: 5, name: "Grant Sloan" }
           ]
         }
       ]

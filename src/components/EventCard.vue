@@ -1,11 +1,12 @@
 <template>
   <router-link :to="url" class="event-link">
     <div class="event-card -shadow">
-      <span class="eyebrow">Starts at {{ event.checkIn }} on {{ event.startDate }}</span>
+      <span class="eyebrow"
+        >Starts at {{ event.checkIn }} on {{ event.startDate }}</span
+      >
       <h4 class="title">{{ event.name }}</h4>
-      <span>{{ event.attendees.length }} attending</span><br>
+      <span>{{ event.attendees.length }} attending</span><br />
       <span>Ends {{ event.endDate }} at {{ event.checkOut }}</span>
-      
     </div>
   </router-link>
 </template>
