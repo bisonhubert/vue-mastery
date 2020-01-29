@@ -1,4 +1,5 @@
 import Vue from "vue";
+import "./plugins/axios";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -6,7 +7,7 @@ import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 
 const requireComponent = require.context(
- "./components",
+  "./components",
   false,
   /Base[A-Z]\w+\.(vue|js)$/
 );
