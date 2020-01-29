@@ -12,6 +12,7 @@
 
 <script>
 import EventCard from "@/components/EventCard";
+import axios from 'axios';
 
 export default {
   name: "EventList",
@@ -20,24 +21,15 @@ export default {
   },
   data() {
     return {
-      eventsList: [
-        {
-          id: 1,
-          name: "Bachelor Party",
-          startDate: "Friday May 29, 2020",
-          endDate: "Sunday May 31, 2020",
-          checkIn: "3:00 PM",
-          checkOut: "12:00PM",
-          attendees: [
-            { id: 1, name: "Tomas Rodriguez" },
-            { id: 2, name: "James Bolotin" },
-            { id: 3, name: "Joe Ott" },
-            { id: 4, name: "Bryce Yockey" },
-            { id: 5, name: "Grant Sloan" }
-          ]
-        }
-      ]
-    };
+      eventsList: []
+    }
+  },
+  created() {
+    axios
+      .get('http://localhost:3000/events')
+      .then(response => {
+        this.eventsList = response.data
+      })
   }
 };
 </script>
