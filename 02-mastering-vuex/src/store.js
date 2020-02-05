@@ -15,7 +15,7 @@ export default new Vuex.Store({
       state.events = events
     },
     CREATE_EVENT(state, event) {
-      state.event.push(event)
+      state.events.push(event)
     }
   },
   actions: {
@@ -23,8 +23,10 @@ export default new Vuex.Store({
       commit('INITIALIZE_EVENT_LIST', events)
     },
     createEvent({ commit }, event) {
-      EventService.postEvent(event)
-      commit('CREATE_EVENT', event)
+      return EventService.postEvent(event)
+        .then(() => {
+          commit('CREATE_EVENT', event)
+        })
     }
   },
   getters: {

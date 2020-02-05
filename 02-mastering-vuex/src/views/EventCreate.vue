@@ -74,8 +74,13 @@ export default {
     },
     createEvent() {
       this.$store.dispatch('createEvent', this.event)
-      this.event = this.createFreshEvent()
-      this.$router.push({ name: 'event-list'})
+        .then(() => {
+          this.event = this.createFreshEvent()
+        })
+        .catch((e) => {
+          console.log('There was an error creating your event')
+          console.log(e)
+        })
     }
   }
 }
