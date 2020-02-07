@@ -27,8 +27,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    initializeEventList({ commit }, events) {
-      commit("INITIALIZE_EVENT_LIST", events);
+    initializeEventList({ commit }) {
+      EventService.getEvents()
+        .then(response => {
+          commit("INITIALIZE_EVENT_LIST", response.data);
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response);
+        });
     },
     createEvent({ commit }, event) {
       return EventService.postEvent(event).then(() => {
@@ -37,6 +43,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    eventIndex: state => state.events
+    eventList: state => state.events
   }
 });
