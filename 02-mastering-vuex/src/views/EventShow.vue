@@ -32,29 +32,19 @@
   </div>
 </template>
 <script>
-import EventService from "@/services/EventService.js";
+import { mapState } from "vuex";
 
 export default {
   name: "EventShow",
   props: ["id"],
-  data() {
-    return {
-      event: {}
-    };
-  },
   computed: {
+    ...mapState(["event"]),
     organizer() {
-      return this.event.organizer || "Anonymous";
+      return ((this.event.organizer || {}).user || {}).name || "Anonymous";
     }
   },
   created() {
-    EventService.getEvent(this.id)
-      .then(response => {
-        this.event = response.data;
-      })
-      .catch(error => {
-        console.log("There was an error:", error.response);
-      });
+    this.$store.dispatch("getEvent", this.id);
   }
 };
 </script>
