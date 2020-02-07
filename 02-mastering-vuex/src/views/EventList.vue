@@ -1,12 +1,21 @@
 <template>
   <div>
     <h1>Events Listing</h1>
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <EventCard v-for="event in eventList" :key="event.id" :event="event" />
     <template v-if="!isFirstPage">
-      <router-link :to="{ name: 'event-list', query: { page: prevPageNum }}" rel="prev">Prev Page</router-link>
+      <router-link
+        :to="{ name: 'event-list', query: { page: page - 1 } }"
+        rel="prev"
+        >Prev Page</router-link
+      >
     </template>
+    <span v-if="!isFirstPage && !isLastPage"> | </span>
     <template v-if="!isLastPage">
-      <router-link :to="{ name: 'event-list', query: { page: nextPageNum }}" rel="next">Next Page</router-link>
+      <router-link
+        :to="{ name: 'event-list', query: { page: page + 1 } }"
+        rel="next"
+        >Next Page</router-link
+      >
     </template>
   </div>
 </template>
@@ -24,36 +33,39 @@ export default {
   data() {
     return {
       perPage: 3
-    }
+    };
   },
   computed: {
     ...mapState(["events"]),
+    eventList() {
+      return this.events.results;
+    },
+    eventCount() {
+      return this.events.count;
+    },
     page() {
-      return this.$route.query.page || 1;
+      return Number(this.$route.query.page) || 1;
     },
     isFirstPage() {
-      return this.page === 1
+      return this.page === 1;
     },
     isLastPage() {
-      return this.page < (this.events / this.perPage)
-    },
-    prevPageNum() {
-      return this.isFirstPage
-        ? 1
-        : this.page - 1
-    },
-    nextPageNum() {
-      return this.isLastPage
-        ? this.page
-        : this.page + 1
+      return this.page >= this.eventCount / this.perPage;
     }
   },
   created() {
-    this.$store.dispatch("getEvents", { perPage: this.perPage, page: this.page });
+    this.$store.dispatch("getEvents", {
+      perPage: this.perPage,
+      page: this.page
+    });
+    this.$store.dispatch("getEventsCount");
   },
   watch: {
     page(nextPage) {
-      this.$store.dispatch("getEvents", { perPage: this.perPage, page: nextPage });
+      this.$store.dispatch("getEvents", {
+        perPage: this.perPage,
+        page: nextPage
+      });
     }
   }
 };

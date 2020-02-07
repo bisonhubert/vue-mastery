@@ -16,14 +16,20 @@ export default new Vuex.Store({
       "food",
       "community"
     ],
-    events: []
+    events: {
+      results: [],
+      count: 0
+    }
   },
   mutations: {
     GET_EVENTS(state, events) {
-      state.events = events;
+      state.events.results = events;
+    },
+    GET_EVENTS_COUNT(state, count) {
+      state.events.count = count;
     },
     CREATE_EVENT(state, event) {
-      state.events.push(event);
+      state.events.results.push(event);
     }
   },
   actions: {
@@ -31,6 +37,15 @@ export default new Vuex.Store({
       EventService.getEvents(perPage, page)
         .then(response => {
           commit("GET_EVENTS", response.data);
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response);
+        });
+    },
+    getEventsCount({ commit }) {
+      EventService.getEvents()
+        .then(response => {
+          commit("GET_EVENTS_COUNT", Number(response.headers["x-total-count"]));
         })
         .catch(error => {
           console.log("There was an error:", error.response);
