@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 import EventCard from "@/components/EventCard.vue";
 import EventService from "@/services/EventService.js";
@@ -16,12 +16,12 @@ export default {
     EventCard
   },
   computed: {
-    ...mapGetters(['eventIndex'])
+    ...mapGetters(["eventIndex"])
   },
   created() {
     EventService.getEvents()
       .then(response => {
-        this.$store.dispatch('initializeEventList', response.data)
+        this.$store.dispatch("initializeEventList", response.data);
       })
       .catch(error => {
         console.log("There was an error:", error.response);

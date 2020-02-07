@@ -35,7 +35,7 @@
 import EventService from "@/services/EventService.js";
 
 export default {
-  name: 'EventShow',
+  name: "EventShow",
   props: ["id"],
   data() {
     return {
@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     organizer() {
-      return this.event.organizer || 'Anonymous'
+      return this.event.organizer || "Anonymous";
     }
   },
   created() {
