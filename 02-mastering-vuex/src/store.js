@@ -19,7 +19,7 @@ export default new Vuex.Store({
     events: []
   },
   mutations: {
-    INITIALIZE_EVENT_LIST(state, events) {
+    GET_EVENTS(state, events) {
       state.events = events;
     },
     CREATE_EVENT(state, event) {
@@ -27,10 +27,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    initializeEventList({ commit }) {
-      EventService.getEvents()
+    getEvents({ commit }, { perPage, page }) {
+      EventService.getEvents(perPage, page)
         .then(response => {
-          commit("INITIALIZE_EVENT_LIST", response.data);
+          commit("GET_EVENTS", response.data);
         })
         .catch(error => {
           console.log("There was an error:", error.response);

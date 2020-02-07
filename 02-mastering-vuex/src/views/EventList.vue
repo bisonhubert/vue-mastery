@@ -11,14 +11,18 @@ import { mapState } from "vuex";
 import EventCard from "@/components/EventCard.vue";
 
 export default {
+  name: "EventList",
   components: {
     EventCard
   },
   computed: {
-    ...mapState(["events"])
+    ...mapState(["events"]),
+    page() {
+      return this.$route.query.page || 1;
+    }
   },
   created() {
-    this.$store.dispatch("initializeEventList");
+    this.$store.dispatch("getEvents", { perPage: 3, page: this.page });
   }
 };
 </script>
