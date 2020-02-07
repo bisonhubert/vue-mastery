@@ -58,7 +58,6 @@ export default {
       perPage: this.perPage,
       page: this.page
     });
-    this.$store.dispatch("getEventsCount");
   },
   watch: {
     page(nextPage) {
