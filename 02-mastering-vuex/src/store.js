@@ -48,7 +48,12 @@ export default new Vuex.Store({
         });
     },
     getEvent({ commit, state, getters }, id) {
-      if (state.events.results.length === 0) {
+      const event = getters.getEventById(id);
+      if (event !== undefined) {
+        if (id !== state.event.id) {
+          commit("SET_EVENT", event);
+        }
+      } else {
         EventService.getEvent(id)
           .then(response => {
             commit("SET_EVENT", response.data);
@@ -56,8 +61,6 @@ export default new Vuex.Store({
           .catch(error => {
             console.log("There was an error:", error.response);
           });
-      } else if (id !== state.event.id) {
-        commit("SET_EVENT", getters.getEventById(id));
       }
     },
     createEvent({ commit }, event) {
