@@ -47,14 +47,18 @@ export default new Vuex.Store({
           console.log("There was an error:", error.response);
         });
     },
-    getEvent({ commit }, id) {
-      EventService.getEvent(id)
-        .then(response => {
-          commit("SET_EVENT", response.data);
-        })
-        .catch(error => {
-          console.log("There was an error:", error.response);
-        });
+    getEvent({ commit, state, getters }, id) {
+      if (state.events.results.length === 0) {
+        EventService.getEvent(id)
+          .then(response => {
+            commit("SET_EVENT", response.data);
+          })
+          .catch(error => {
+            console.log("There was an error:", error.response);
+          });
+      } else if (id !== state.event.id) {
+        commit("SET_EVENT", getters.getEventById(id));
+      }
     },
     createEvent({ commit }, event) {
       return EventService.postEvent(event).then(() => {
@@ -63,6 +67,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    eventList: state => state.events
+    eventList: state => state.events,
+    getEventById: state => id => {
+      return state.events.results.find(event => event.id === id);
+    }
   }
 });
