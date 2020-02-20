@@ -36,12 +36,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(["events", "user"]),
+    ...mapState(["event", "user"]),
     eventList() {
-      return this.events.results;
-    },
-    eventCount() {
-      return this.events.count;
+      return this.event.events;
     },
     page() {
       return Number(this.$route.query.page) || 1;
@@ -50,7 +47,7 @@ export default {
       return this.page === 1;
     },
     isLastPage() {
-      return this.page >= this.eventCount / this.perPage;
+      return this.page >= this.event.eventsTotal / this.perPage;
     }
   },
   created() {

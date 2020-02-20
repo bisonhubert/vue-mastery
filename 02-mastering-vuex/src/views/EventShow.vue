@@ -38,7 +38,9 @@ export default {
   name: "EventShow",
   props: ["id"],
   computed: {
-    ...mapState(["event"]),
+    ...mapState({
+      event: state => state.event.event
+    }),
     organizer() {
       return ((this.event.organizer || {}).user || {}).name || "Anonymous";
     }
