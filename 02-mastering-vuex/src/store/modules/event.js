@@ -24,17 +24,22 @@ export const mutations = {
 };
 
 export const actions = {
-  getEvents({ commit }, { perPage, page }) {
+  getEvents({ commit, dispatch }, { perPage, page }) {
     EventService.getEvents(perPage, page)
       .then(response => {
         commit("SET_EVENTS", response.data);
         commit("SET_EVENTS_COUNT", Number(response.headers["x-total-count"]));
       })
       .catch(error => {
-        console.log("There was an error:", error.response);
+        const message = `There was a problem getting events: ${error.message}`;
+        const notification = {
+          type: "error",
+          message
+        };
+        dispatch("notification/add", notification, { root: true });
       });
   },
-  getEvent({ commit, state, getters }, id) {
+  getEvent({ commit, state, getters, dispatch }, id) {
     const event = getters.getEventById(id);
     if (event !== undefined) {
       if (id !== state.event.id) {
@@ -46,14 +51,35 @@ export const actions = {
           commit("SET_EVENT", response.data);
         })
         .catch(error => {
-          console.log("There was an error:", error.response);
+          const message = `There was a problem getting event ${id}: ${error.message}`;
+          const notification = {
+            type: "error",
+            message
+          };
+          dispatch("notification/add", notification, { root: true });
         });
     }
   },
-  createEvent({ commit }, event) {
-    return EventService.postEvent(event).then(() => {
-      commit("CREATE_EVENT", event);
-    });
+  createEvent({ commit, dispatch }, event) {
+    return EventService.postEvent(event)
+      .then(() => {
+        commit("CREATE_EVENT", event);
+        const message = "Event created.";
+        const notification = {
+          type: "success",
+          message
+        };
+        dispatch("notification/add", notification, { root: true });
+      })
+      .catch(error => {
+        const message = `There was a problem creating the event: ${error.message}`;
+        const notification = {
+          type: "error",
+          message
+        };
+        dispatch("notification/add", notification, { root: true });
+        throw error;
+      });
   }
 };
 
