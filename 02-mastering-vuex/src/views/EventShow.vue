@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "EventShow",
@@ -45,8 +45,11 @@ export default {
       return ((this.event.organizer || {}).user || {}).name || "Anonymous";
     }
   },
+  methods: {
+    ...mapActions("event", ["getEvent"])
+  },
   created() {
-    this.$store.dispatch("event/getEvent", this.id);
+    this.getEvent(this.id);
   }
 };
 </script>
