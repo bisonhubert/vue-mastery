@@ -46,7 +46,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getEvent", this.id);
+    this.$store.dispatch("event/getEvent", this.id);
   }
 };
 </script>

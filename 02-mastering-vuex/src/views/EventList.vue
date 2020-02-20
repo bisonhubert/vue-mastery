@@ -51,14 +51,14 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getEvents", {
+    this.$store.dispatch("event/getEvents", {
       perPage: this.perPage,
       page: this.page
     });
   },
   watch: {
     page(nextPage) {
-      this.$store.dispatch("getEvents", {
+      this.$store.dispatch("event/getEvents", {
         perPage: this.perPage,
         page: nextPage
       });
