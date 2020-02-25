@@ -1,5 +1,10 @@
 # real-world-vue
 
+## Commands
+* Run server: `npm run serve --watch`
+* Run database: `json-server db.json --watch`
+* Run database w/ response latency: `json-server -d 1500 db.json --watch`
+
 ## Following along?
 
 We encourage you to follow the course on Vue Mastery, and code along with us. This course has tags representing the start and finish of each level, just in case you get stuck. Here's the start and ending code of each lesson, if you'd like to download them.
