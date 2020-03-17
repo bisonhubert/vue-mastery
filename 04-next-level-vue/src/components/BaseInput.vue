@@ -1,7 +1,7 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input type="text" :value="value" @input="updateValue"/>
+    <input type="text" :value="value" :placeholder="placeholder" @input="updateValue"/>
   </div>
 </template>
 
@@ -13,7 +13,11 @@ export default {
       type: String,
       default: ''
     },
-    value: [String, Number]
+    value: [String, Number],
+    placeholder: {
+      type: String,
+      default: ''
+    }
   },
   methods: {
     updateValue(event) {
