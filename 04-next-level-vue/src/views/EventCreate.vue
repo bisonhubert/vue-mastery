@@ -2,8 +2,7 @@
   <div>
     <h1>Create an Event</h1>
     <form @submit.prevent="createEvent">
-      <label>Select a category</label>
-      <BaseInput label="Select a category" v-model="event.categories" type="select" class="field" :options="categories" />
+      <BaseSelect label="Select a category" v-model="event.categories" type="select" class="field" :options="categories" />
 
       <h3>Name & describe your event</h3>
       <div class="field">
@@ -25,7 +24,7 @@
       </div>
 
       <div class="field">
-        <BaseInput label="Select a time" v-model="event.time" type="select" class="field" :options="times" />
+        <BaseSelect label="Select a time" v-model="event.time" type="select" class="field" :options="times" />
       </div>
 
       <input type="submit" class="button -fill-gradient" value="Submit"/>
@@ -38,6 +37,7 @@
 import NProgress from "nprogress";
 
 export default {
+  name: "EventCreate",
   data() {
     const times = [];
     for (let i = 1; i <= 24; i++) {
