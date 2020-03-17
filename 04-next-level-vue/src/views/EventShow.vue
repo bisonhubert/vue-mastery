@@ -4,7 +4,7 @@
       <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
       <h1 class="title">{{ event.title }}</h1>
       <h5>Organized by {{ event.organizer ? event.organizer.name : '' }}</h5>
-      <h5>Category: {{ event.category }}</h5>
+      <h5>Categories: <span class="ml--5px"> {{ event.categories }}</span></h5>
     </div>
 
     <BaseIcon name="map"><h2>Location</h2></BaseIcon>
@@ -52,5 +52,8 @@ export default {
 .list-group > .list-item {
   padding: 1em 0;
   border-bottom: solid 1px #e5e5e5;
+}
+.ml--5px {
+  margin-left: 5px;
 }
 </style>
