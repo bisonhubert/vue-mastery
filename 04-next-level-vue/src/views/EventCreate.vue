@@ -2,7 +2,15 @@
   <div>
     <h1>Create an Event</h1>
     <form @submit.prevent="createEvent">
-      <BaseSelect label="Select a category" v-model="event.categories" type="select" class="field" :options="categories" />
+      <BaseSelect 
+        label="Select a category"
+        v-model="event.categories"
+        :options="categories"
+        :class="{ error: $v.event.category.$error }"
+        @blur="$v.event.category.$touch()"/>
+      <template v-if="$v.event.category.$error">
+        <p v-if="!$v.event.category.required" class="errorMessage">Category is required.</p>
+      </template>
 
       <h3>Name & describe your event</h3>
       <div class="field">
@@ -24,8 +32,16 @@
       </div>
 
       <div class="field">
-        <BaseSelect label="Select a time" v-model="event.time" type="select" class="field" :options="times" />
+        <BaseSelect
+          label="Select a time"
+          v-model="event.time"
+          :options="times"
+          :class="{ error: $v.event.time.$error }"
+          @blur="$v.event.time.$touch()"/>
       </div>
+      <template v-if="$v.event.time.$error">
+        <p v-if="!$v.event.time.required" class="errorMessage">Time is required.</p>
+      </template>
 
       <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
     </form>
@@ -35,6 +51,7 @@
 
 <script>
 import NProgress from "nprogress";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   name: "EventCreate",
@@ -48,6 +65,31 @@ export default {
       categories: this.$store.state.categories,
       event: this.createFreshEventObject()
     };
+  },
+  validations: {
+    event: {
+      category: {
+        required
+      },
+      organizer: {
+        required
+      },
+      title: {
+        required
+      },
+      description: {
+        required
+      },
+      location: {
+        required
+      },
+      date: {
+        required
+      },
+      time: {
+        required
+      }
+    }
   },
   methods: {
     createEvent() {
