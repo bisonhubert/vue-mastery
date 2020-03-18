@@ -14,21 +14,37 @@
 
       <h3>Name & describe your event</h3>
       <div class="field">
-       <BaseInput label="Title" v-model="event.title" placeholder="Add a title" type="text" class="field"/>
+        <BaseInput
+          label="Title"
+          v-model="event.title"
+          placeholder="Add a title"
+          :class="{ error: $v.event.title.$error }"
+          @blur="$v.event.title.touch()"/>
+        <template v-if="$v.event.title.$error">
+          <p v-if="!$v.event.title.required" class="errorMessage">Title is required.</p>
+        </template>
       </div>
 
       <div class="field">
-        <BaseInput label="Description" v-model="event.description" placeholder="Add a description" type="text" class="field"/>
+        <BaseInput
+          label="Description"
+          v-model="event.description"
+          placeholder="Add a description"
+          class="field"/>
       </div>
 
       <h3>Where is your event?</h3>
       <div class="field">
-        <BaseInput label="Location" v-model="event.location" placeholder="Add a location" type="text" class="field"/>
+        <BaseInput
+          label="Location"
+          v-model="event.location"
+          placeholder="Add a location"
+          class="field"/>
       </div>
 
       <h3>When is your event?</h3>
       <div class="field">
-        <BaseInput label="Date" v-model="event.date" placeholder="Add a location" type="datepicker" class="field"/>
+        <datepicker label="Date" v-model="event.date" placeholder="Add a location" class="field" />
       </div>
 
       <div class="field">
@@ -51,10 +67,14 @@
 
 <script>
 import NProgress from "nprogress";
+import Datepicker from "vuejs-datepicker";
 import { required } from "vuelidate/lib/validators";
 
 export default {
   name: "EventCreate",
+  components: {
+    Datepicker
+  },
   data() {
     const times = [];
     for (let i = 1; i <= 24; i++) {

@@ -1,36 +1,30 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <datepicker v-if="type === 'datepicker'" @input="updateValue" :placeholder="placeholder" />
-    <input v-else :type="type" :value="value" :placeholder="placeholder" @input="updateValue"/>
+    <input type="text" :value="value" :placeholder="placeholder" @input="updateValue" v-on="listeners"/>
   </div>
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
-
 export default {
   name: "BaseInput",
-  components: {
-    Datepicker
-  },
   props: {
     label: {
       type: String,
       default: ""
     },
-    value: [String, Number],
     placeholder: {
       type: String,
       default: ""
     },
-    type: {
-      type: String,
-      default: "text"
-    },
-    options: {
-      type: Array,
-      default: () => []
+    value: [String, Number]
+  },
+  computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: this.updateValue
+      }
     }
   },
   methods: {
