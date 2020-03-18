@@ -2,9 +2,6 @@
   <div>
     <label v-if="label">{{ label }}</label>
     <datepicker v-if="type === 'datepicker'" @input="updateValue" :placeholder="placeholder" />
-    <select v-else-if="type === 'select'" @input="updateValue">
-      <option v-for="option in options" :key="option">{{ option }}</option>
-    </select>
     <input v-else :type="type" :value="value" :placeholder="placeholder" @input="updateValue"/>
   </div>
 </template>
